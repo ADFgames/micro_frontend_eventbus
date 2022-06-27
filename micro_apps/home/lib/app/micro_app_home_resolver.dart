@@ -1,34 +1,29 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:dependencies/dependencies.dart';
 import 'package:eventbus/eventbus.dart';
 import 'package:home/app/core/inject/inject_home.dart';
 import 'package:home/app/feature/home/presenter/home_page.dart';
 import 'package:login/app/features/login/infra/models/models.dart';
 import 'package:micro_core/app/micro_app.dart';
 import 'package:micro_core/app/micro_core_utils.dart';
-//import 'package:dependencies/dependencies.dart';
 
 class MicroAppHomeResolver implements MicroApp {
+  LoginModel? model;
+  GetIt getIt = GetIt.instance;
   @override
   void Function() get createListener => () {
         EventBus.listen((event) {
-          var model = LoginModel(
-            code: event['code'],
-            message: 'Sucesso!!!!!',
-            dataModel: event['dataModel'],
+          var merda = jsonDecode(event);
+
+          model = LoginModel(
+            code: merda['code'],
+            message: merda['message'],
+            dataModel: merda['dataModel'],
           );
-
-          print(model.code.toString());
-
-          //       message: loginModel.message,
-          //       dataModel: loginModel.dataModel,
-          // GetIt getIt = GetIt.instance;
-
-          // getIt.registerLazySingleton<LoginModel>(() => LoginModel(
-          //       code: loginModel.code,
-          //       message: loginModel.message,
-          //       dataModel: loginModel.dataModel,
-          //     ));
-
-          // HomePageController(loginModel);
+          log('Resolver antes Register LoginModel!!!!!!!! ============================');
+          getIt.registerLazySingleton<LoginModel>(() => model!);
         });
       };
 
