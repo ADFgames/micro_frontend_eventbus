@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 
 import 'package:commons/commons.dart';
 import 'package:flutter/material.dart';
@@ -30,13 +29,13 @@ class LoginDatasourceImpl implements LoginDatasource {
 
     RestClientResponse? response = await restClient.post('/login', headers: params.toMap());
 
-    //Map<String, dynamic> respData = response.data;
+    // Map<String, dynamic> respData = response.data;
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
       if (response.data.isNotEmpty) {
         WidgetsFlutterBinding.ensureInitialized();
         //await storageTokenAuth.setTokenAuth(response.data['dataModel']['token']);
-        return LoginModel.fromJson(response.data);
+        return LoginModel.fromMap(response.data);
       }
     }
 

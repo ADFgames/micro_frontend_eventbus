@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:eventbus/eventbus.dart';
 import 'package:login/app/features/login/domain/usecases/usecases.dart';
@@ -51,6 +50,7 @@ abstract class LoginControllerBase with Store {
       setLoginInfoState(errorLoginModel);
     }, (loginModel) {
       EventBus.emit(loginModel.toJson());
+
       navigatorKey.currentState?.pushReplacementNamed('/home');
     });
   }

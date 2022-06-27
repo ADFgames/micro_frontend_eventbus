@@ -4,7 +4,7 @@ import 'dart:convert';
 class LoginModel {
   final int? code;
   final String? message;
-  final DataModel? dataModel;
+  final Map<String, dynamic>? dataModel;
 
   LoginModel({
     this.code,
@@ -16,7 +16,7 @@ class LoginModel {
     return <String, dynamic>{
       'code': code,
       'message': message,
-      'dataModel': dataModel?.toMap(),
+      'dataModel': dataModel,
     };
   }
 
@@ -24,7 +24,7 @@ class LoginModel {
     return LoginModel(
       code: map['code'] as int,
       message: map['message'] as String,
-      dataModel: DataModel.fromMap(map['dataModel'] as Map<String, dynamic>),
+      dataModel: map['dataModel'],
     );
   }
 
@@ -35,12 +35,12 @@ class LoginModel {
   LoginModel copyWith({
     int? code,
     String? message,
-    DataModel? dataModel,
+    Map<String, dynamic>? dataModel,
   }) {
     return LoginModel(
       code: code ?? this.code,
       message: message ?? this.message,
-      dataModel: dataModel ?? this.dataModel,
+      dataModel: dataModel ?? {},
     );
   }
 
@@ -57,51 +57,3 @@ class LoginModel {
   @override
   int get hashCode => code.hashCode ^ message.hashCode ^ dataModel.hashCode;
 }
-
-class DataModel {
-  final String token;
-  final List<String> links;
-
-  DataModel({
-    required this.token,
-    required this.links,
-  });
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'token': token,
-      'links': links,
-    };
-  }
-
-  factory DataModel.fromMap(Map<String, dynamic> map) {
-    return DataModel(
-        token: map['token'] as String,
-        links: List<String>.from(
-          (map['links']),
-        ));
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory DataModel.fromJson(String source) => DataModel.fromMap(json.decode(source) as Map<String, dynamic>);
-}
-
-// class DataModel {
-//   String? token;
-//   List<String>? links;
-
-//   DataModel({token, links});
-
-//   DataModel.fromJson(Map<String, dynamic> json) {
-//     token = json['token'];
-//     links = json['links'].cast<String>();
-//   }
-
-//   Map<String, dynamic> toJson() {
-//     final Map<String, dynamic> data = <String, dynamic>{};
-//     data['token'] = token;
-//     data['links'] = links;
-//     return data;
-//   }
-// }
