@@ -18,12 +18,3 @@ class InternalServerError extends Failure {
     this.message,
   });
 }
-
-class FizComunicationError extends Failure {
-  @override
-  final String? message;
-
-  FizComunicationError({
-    this.message,
-  });
-}
