@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     _controller = GetIt.I.get<LoginController>();
-    emailCopntroller.text = 'fonseca.deivid@gmail.com';
+    emailCopntroller.text = 'admin@gmail.com';
     passwordController.text = '123456';
   }
 
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () async {
                             LoginParams params = LoginParams(email: emailCopntroller.text, password: passwordController.text);
 
-                            _controller.auth(emailCopntroller.text, passwordController.text);
+                            _controller.auth(params.email, params.password);
                           },
                           buttonSize: SPButtonSize.medium,
                           buttonState: SPButtonState.common,

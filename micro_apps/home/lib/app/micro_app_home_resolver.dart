@@ -15,12 +15,12 @@ class MicroAppHomeResolver implements MicroApp {
   @override
   void Function() get createListener => () {
         EventBus.listen((event) {
-          var merda = jsonDecode(event);
+          var aograVai = jsonDecode(event);
 
           model = LoginModel(
-            code: merda['code'],
-            message: merda['message'],
-            dataModel: merda['dataModel'],
+            code: aograVai['code'],
+            message: aograVai['message'],
+            dataModel: aograVai['dataModel'],
           );
           log('Resolver antes Register LoginModel!!!!!!!! ============================');
           getIt.registerLazySingleton<LoginModel>(() => model!);
